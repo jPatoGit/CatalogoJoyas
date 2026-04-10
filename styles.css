@@ -1,4 +1,4 @@
-/*--------------- ENCABEZADO ------------------*/
+/*----------------------------------- ENCABEZADO --------------------------------*/
 *{
     box-sizing: border-box;
 }
@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .container_encabezado{
@@ -86,18 +87,19 @@ h2{
 /*------------------------------- CATALOGO MAIN --------------------------------*/
 
 .main{
+    width: 100%;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     /*margin-bottom: 1.5rem;*/
 }
 
 .container_catalogo{
-    width: 90%;
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    gap: 15px;
+    gap: 30px 90px;
     padding: 15px;
 }
 
@@ -165,11 +167,10 @@ button , .modal{
     padding: 15px;
     max-width: 1000px;
     max-height: 800px;
-
     border-radius: 10px;
     display: grid;
     grid-template-columns: repeat(2,1fr);
-    gap: 12px;
+    gap: 12px 18px;
     place-items: center;
 }
 
