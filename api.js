@@ -14,6 +14,18 @@ export async function selectJoyas() {
     return data;
 }
 
+export async function singleJoya(id){
+    const {data,error} = await client
+        .from("joyas")
+        .select("*")
+        .eq("joya_id", id)
+        .single();
+    if(error){
+        console.log(error);
+    }
+    return data;
+}
+
 export async function insertJoya(item) {
     const {data,error} = await client
         .from("joyas")

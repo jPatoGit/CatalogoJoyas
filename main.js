@@ -1,9 +1,9 @@
 
-import { selectJoyas, insertJoya, updateJoya, deleteJoya, imagenes } from "./api.js";
+import { selectJoyas, insertJoya, updateJoya, deleteJoya, imagenes, singleJoya } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", async ()=>{
     await mostrarCatalogo();
-    mostrar();
+    mostrarModal();
     cerrarModal();
     mostrarDB();
 })
@@ -13,11 +13,27 @@ function bloquearScroll(e) {
     e.preventDefault();
 }
 
-function mostrar(){
+async function mostrarImagenes(joya) {
+    const imgs = document.querySelectorAll(".modal--img");
+    console.log(imgs[0]);
+        for(let i = 0; i < 4; i++){
+            const img = imgs[i]
+            const ruta = joya.imagenes.split(",")[i].trim();
+            console.log(ruta);
+            img.src = await imagenes(ruta);
+        }
+}
+
+async function mostrarModal(){
     const item = document.querySelectorAll(".catalogo_joya");
     const modal = document.querySelector(".modal");
+    
     item.forEach(it =>{
-        it.addEventListener("click",()=>{
+        it.addEventListener("click", async (e)=>{
+            const id = e.currentTarget.dataset.id;
+            const joya = await singleJoya(id);
+            mostrarImagenes(joya);
+            console.log(joya);
             window.addEventListener("wheel", bloquearScroll, { passive: false });
             window.addEventListener("touchmove", bloquearScroll, { passive: false });
             modal.classList.add("active");
@@ -29,18 +45,26 @@ function mostrar(){
 function cerrarModal(){
     const btn = document.querySelector(".btn_modal")
     const modal = document.querySelector(".modal");
+    const imgs = document.querySelectorAll(".modal--img");
     btn.addEventListener("click",()=>{
+        imgs.forEach(item=>{
+            item.src = "";
+        })
         window.removeEventListener("wheel", bloquearScroll);
         window.removeEventListener("touchmove", bloquearScroll);
         modal.classList.remove("active");
     })
     modal.addEventListener("click",(e)=>{
         if(e.target === modal){
+            imgs.forEach(item=>{
+                item.src = "";
+            })
             window.removeEventListener("wheel", bloquearScroll);
             window.removeEventListener("touchmove", bloquearScroll);
             modal.classList.remove("active");
         }
     })
+    
 }
 
 // ------------------------ FUNCIONES PARA MOSTRAR CATALOGO ------------------
@@ -58,9 +82,9 @@ async function mostrarCatalogo() {
         let ruta = data[i].imagenes.split(",")[0];
         const img = await imagenes(ruta)
         let item = `
-                    <div class="catalogo_joya">
+                    <div class="catalogo_joya" data-id="${data[i].joya_id}">
                         <div class="catalogo_joya--imagen">
-                            <img src="${img}" alt="">
+                            <img src="${img}" alt="">   
                         </div>
                         <div class="catalogo_joya--descripcion">
                             <h3>${data[i].nombre}</h3>
@@ -70,3 +94,5 @@ async function mostrarCatalogo() {
     }
     contenedor.innerHTML = contenidoHTML;
 }
+
+
