@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     mostrarModal();
     cerrarModal();
     mostrarDB();
+
 })
 
 // --------------------- FUNCIONES PARA MOSTRAR MODAL ---------------------------
@@ -93,6 +94,14 @@ async function mostrarCatalogo() {
         contenidoHTML = contenidoHTML + item;
     }
     contenedor.innerHTML = contenidoHTML;
+}
+
+function contacto(){
+    const btn = document.querySelector(".container_whatsapp")
+    btn.addEventListener("click",()=>{
+        alert("vas a redirigir a tu chat");
+    })
+    
 }
 
 
