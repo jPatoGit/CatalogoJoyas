@@ -2,11 +2,11 @@
 import { selectJoyas, insertJoya, updateJoya, deleteJoya, imagenes, singleJoya } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", async ()=>{
+    mostrarDB();
     await mostrarCatalogo();
     mostrarModal();
+    mover();
     cerrarModal();
-    mostrarDB();
-
 })
 
 // --------------------- FUNCIONES PARA MOSTRAR MODAL ---------------------------
@@ -47,6 +47,7 @@ function cerrarModal(){
     const btn = document.querySelector(".btn_modal")
     const modal = document.querySelector(".modal");
     const imgs = document.querySelectorAll(".modal--img");
+    const slider = document.querySelector(".modal-content");
     btn.addEventListener("click",()=>{
         imgs.forEach(item=>{
             item.src = "";
@@ -54,6 +55,7 @@ function cerrarModal(){
         window.removeEventListener("wheel", bloquearScroll);
         window.removeEventListener("touchmove", bloquearScroll);
         modal.classList.remove("active");
+        slider.style.transform = `translateX(0%)`;
     })
     modal.addEventListener("click",(e)=>{
         if(e.target === modal){
@@ -63,12 +65,39 @@ function cerrarModal(){
             window.removeEventListener("wheel", bloquearScroll);
             window.removeEventListener("touchmove", bloquearScroll);
             modal.classList.remove("active");
+            slider.style.transform = `translateX(0%)`;
         }
     })
     
 }
 
 // ----------------------- SLIDER MODAL ----------------------------------
+
+
+function mover(){
+    let index = 0;
+    const slider = document.querySelector(".modal-content");
+    const next = document.querySelector(".next");
+    const prev = document.querySelector(".prev");
+    const total = 4;
+
+    next.addEventListener("click",()=>{
+        if(index < total-1){
+            index ++;
+            slider.style.transform = `translateX(-${index * 100}%)`;
+        }
+    });
+
+    prev.addEventListener("click",()=>{
+        if(index > 0){
+            index --;
+            slider.style.transform = `translateX(-${index * 100}%)`;
+        }
+    });
+
+}
+
+
 
 
 
