@@ -86,12 +86,20 @@ function mover(){
             index ++;
             slider.style.transform = `translateX(-${index * 100}%)`;
         }
+        if(index === total-1){
+            next.disabled = true;
+            prev.disabled = false;
+        }
     });
 
     prev.addEventListener("click",()=>{
         if(index > 0){
             index --;
             slider.style.transform = `translateX(-${index * 100}%)`;
+        }
+        if(index === 0){
+            prev.disabled = true;
+            next.disabled = false;
         }
     });
 
