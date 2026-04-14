@@ -19,7 +19,7 @@ async function mostrarImagenes(joya) {
     console.log(imgs[0]);
         for(let i = 0; i < 4; i++){
             const img = imgs[i]
-            const ruta = joya.imagenes.split(",")[i].trim();
+            const ruta = joya.imagenes.split(",")[i];
             console.log(ruta);
             img.src = await imagenes(ruta);
         }
@@ -67,6 +67,11 @@ function cerrarModal(){
     })
     
 }
+
+// ----------------------- SLIDER MODAL ----------------------------------
+
+
+
 
 // ------------------------ FUNCIONES PARA MOSTRAR CATALOGO ------------------
 
