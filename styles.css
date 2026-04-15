@@ -2,30 +2,29 @@
 *{
     box-sizing: border-box;
 }
+body{
+    margin: 0;
+}
 
 .header{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 100%;
 }
 
 .container_encabezado{
-    width: 95%;
-    /*background-color: #C9A248;*/
+    width: 100%;
     margin: 0;
-    padding: 8px;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    
+    padding: 10px;
 }
 
 .container_encabezado--imagen{
-    height: 360px;
+    width: 100%;
+    height: 350px;
     position: relative;
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: 20px;    
     animation: aparecer 0.5s linear both;
 }
 
@@ -33,8 +32,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
-    opacity: 0.65;
 }
 
 h1, h2{
@@ -44,8 +41,8 @@ h1, h2{
     animation: aparecer 0.5s linear both;
 }
 
-.container_encabezado--imagen h1{
-    font-size: 5.2rem;
+h1{
+    font-size: clamp(3.4rem, 4.5vw, 7rem);
     width: 500px;
     position: absolute;
     top: 12%;
@@ -405,6 +402,22 @@ body{
 
 /*------------------------- RENDERIZADO PANTALLAS ----------------------*/
 
+@media screen and (min-width: 480px) and (max-width: 840px) {
+    .container_catalogo{
+        grid-template-columns: repeat(2,1fr);
+        gap: 5px 2px;
+    }
+
+    .container_encabezado{
+        width: 95vw;
+    }
+
+    .container_encabezado--stories{
+        overflow: hidden;
+    }
+}
+
+
 @media (max-width: 480px){
 
     .main{
@@ -416,12 +429,11 @@ body{
         max-height: 30vh;;
     }
 
-    .container_encabezado--imagen h1{
+    h1{
         padding: 6px;
         top: 0;
         margin: 0;
         left: 0;
-        font-size: 3.5rem;
         width: 350px;
     }
 
@@ -437,8 +449,8 @@ body{
     }
 
     .container_catalogo{
-        grid-template-columns: repeat(2,1fr);
-        gap: 5px 2px;
+        grid-template-columns: repeat(1,1fr);
+        gap: 10px;
     }
 
     .container--textanimacion{
