@@ -2,11 +2,12 @@
 import { selectJoyas, insertJoya, updateJoya, deleteJoya, imagenes, singleJoya } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", async ()=>{
+    let index = 0;
     mostrarDB();
     await mostrarCatalogo();
     mostrarModal();
-    mover();
-    cerrarModal();
+    mover(index);
+    cerrarModal(index);
 })
 
 // --------------------- FUNCIONES PARA MOSTRAR MODAL ---------------------------
@@ -43,7 +44,7 @@ async function mostrarModal(){
     
 }
 
-function cerrarModal(){
+function cerrarModal(index){
     const btn = document.querySelector(".btn_modal")
     const modal = document.querySelector(".modal");
     const imgs = document.querySelectorAll(".modal--img");
@@ -52,6 +53,7 @@ function cerrarModal(){
         imgs.forEach(item=>{
             item.src = "";
         })
+        index = 0;
         window.removeEventListener("wheel", bloquearScroll);
         window.removeEventListener("touchmove", bloquearScroll);
         modal.classList.remove("active");
@@ -62,6 +64,7 @@ function cerrarModal(){
             imgs.forEach(item=>{
                 item.src = "";
             })
+            index = 0;
             window.removeEventListener("wheel", bloquearScroll);
             window.removeEventListener("touchmove", bloquearScroll);
             modal.classList.remove("active");
@@ -74,8 +77,8 @@ function cerrarModal(){
 // ----------------------- SLIDER MODAL ----------------------------------
 
 
-function mover(){
-    let index = 0;
+function mover(index){
+    index = 0;
     const slider = document.querySelector(".modal-content");
     const next = document.querySelector(".next");
     const prev = document.querySelector(".prev");
@@ -84,26 +87,24 @@ function mover(){
     next.addEventListener("click",()=>{
         if(index < total-1){
             index ++;
+            console.log(index);
             slider.style.transform = `translateX(-${index * 100}%)`;
         }
-        if(index === total-1){
-            next.disabled = true;
-            prev.disabled = false;
-        }
+        next.disabled = index === total-1;
+        prev.disabled = index === 0;
     });
 
     prev.addEventListener("click",()=>{
         if(index > 0){
             index --;
+            console.log(index);
             slider.style.transform = `translateX(-${index * 100}%)`;
         }
-        if(index === 0){
-            prev.disabled = true;
-            next.disabled = false;
-        }
+        next.disabled = index === total-1;
+        prev.disabled = index === 0;
     });
-
 }
+
 
 
 
