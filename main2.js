@@ -3,8 +3,8 @@ import { selectJoyas, insertJoya, updateJoya, deleteJoya, imagenes, singleJoya }
 document.addEventListener("DOMContentLoaded", async ()=>{
     console.log(document.body.scrollWidth + " vs " + window.innerWidth);
     let index = 0;
-   // mostrarDB();
-    //await mostrarCatalogo();
+    mostrarDB();
+    await mostrarCatalogo();
 })
 
 // --------------------- FUNCIONES PARA MOSTRAR MODAL ---------------------------

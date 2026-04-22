@@ -79,20 +79,19 @@ picture source{
 /*------------------------------- CATALOGO -----------------------------------*/
 
 main{
-    width: 100%;
-    background-color: green;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 100;
 }
 
 .container_catalogo{
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(4,1fr);
+    justify-items: center;
     gap: 0px 50px;
-    
+    background-color: red;
 }
 
 .catalogo_joya{
@@ -197,15 +196,15 @@ h3{
     }
     .container_catalogo{
         grid-template-columns: repeat(2,1fr);
-        gap: 0px 10px;
+        gap: 0px;
     }
     .catalogo_joya{
-        width: 180px;
+        width: 150px;
         
     }
     .catalogo_joya--imagen{
         width: 100%;
-        height: 170px;
+        height: 140px;
     }
 }
 
