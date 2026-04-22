@@ -1,6 +1,7 @@
 import { selectJoyas, insertJoya, updateJoya, deleteJoya, imagenes, singleJoya } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", async ()=>{
+    console.log(document.body.scrollWidth + " vs " + window.innerWidth);
     let index = 0;
     mostrarDB();
     await mostrarCatalogo();
