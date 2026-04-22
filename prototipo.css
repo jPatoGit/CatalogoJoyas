@@ -12,6 +12,8 @@ body{
     box-sizing: border-box;
 }
 
+/*------------------------------- ENCABEZADO --------------------------------*/
+
 .container_encabezado{
     width: 100%;
     display: flex;
@@ -57,9 +59,16 @@ p{
 }
 
 .container_encabezado--imagen img{
+    display: block;
     width: 100%;
+    height: 100%;
     animation: aparecerimg 2.5s linear both;
 }
+
+picture source{
+    display: block;
+}
+
 
 /*------------------------------- CATALOGO -----------------------------------*/
 
