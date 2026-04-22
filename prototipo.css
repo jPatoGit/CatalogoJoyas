@@ -199,11 +199,14 @@ h3{
         gap: 0px;
     }
     .catalogo_joya{
-        width: 150px;
+        width: 100%;
+        height: 100%;
+        padding: 10px 0px;
+        margin: 0;
         
     }
     .catalogo_joya--imagen{
-        width: 100%;
+        width: 160px;
         height: 140px;
     }
 }
