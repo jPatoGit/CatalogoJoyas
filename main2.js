@@ -1,21 +1,13 @@
 import { selectJoyas, insertJoya, updateJoya, deleteJoya, imagenes, singleJoya } from "./api.js";
-
+let index = 0;
 document.addEventListener("DOMContentLoaded", async ()=>{
-    console.log(document.body.scrollWidth + " vs " + window.innerWidth);
-    let index = 0;
+    
     mostrarDB();
     await mostrarCatalogo();
+    mostrarModal(index);
+    mover(index);
+    cerrarModal(index);
 })
-
-// --------------------- FUNCIONES PARA MOSTRAR MODAL ---------------------------
-
-
-
-// ----------------------- SLIDER MODAL ----------------------------------
-
-
-
-
 
 // ------------------------ FUNCIONES PARA MOSTRAR CATALOGO ------------------
 
@@ -45,6 +37,109 @@ async function mostrarCatalogo() {
     }
     contenedor.innerHTML = contenidoHTML;
 }
+
+
+// --------------------- FUNCIONES PARA MOSTRAR MODAL ---------------------------
+
+function bloquearScroll(e) {
+    e.preventDefault();
+}
+
+async function mostrarImagenes(joya) {
+    const imgs = document.querySelectorAll(".modal--img");
+    console.log(imgs[0]);
+        for(let i = 0; i < 4; i++){
+            const img = imgs[i]
+            const ruta = joya.imagenes.split(",")[i];
+            console.log(ruta);
+            img.src = await imagenes(ruta);
+        }
+}
+
+async function mostrarModal(){
+    const item = document.querySelectorAll(".btn_ver");
+    const modal = document.querySelector(".modal");
+    
+    item.forEach(it =>{
+        it.addEventListener("click", async (e)=>{
+            console.log(index);
+            const contenedor = e.target.closest(".catalogo_joya")
+            const id = contenedor.dataset.id;
+            const joya = await singleJoya(id);
+            mostrarImagenes(joya);
+            console.log(joya);
+            window.addEventListener("wheel", bloquearScroll, { passive: false });
+            window.addEventListener("touchmove", bloquearScroll, { passive: false });
+            modal.classList.add("active");
+        })
+    })
+    
+}
+
+function cerrarModal(){
+    const btn = document.querySelector(".btn_modal")
+    const modal = document.querySelector(".modal");
+    const imgs = document.querySelectorAll(".modal--img");
+    const slider = document.querySelector(".modal-content");
+    btn.addEventListener("click",()=>{
+        imgs.forEach(item=>{
+            item.src = "";
+        })
+        index = 0;
+        console.log(index);
+        window.removeEventListener("wheel", bloquearScroll);
+        window.removeEventListener("touchmove", bloquearScroll);
+        modal.classList.remove("active");
+        slider.style.transform = `translateX(0%)`;
+    })
+    modal.addEventListener("click",(e)=>{
+        if(e.target === modal){
+            imgs.forEach(item=>{
+                item.src = "";
+            })
+            index = 0;
+            console.log(index);
+            window.removeEventListener("wheel", bloquearScroll);
+            window.removeEventListener("touchmove", bloquearScroll);
+            modal.classList.remove("active");
+            slider.style.transform = `translateX(0%)`;
+        }
+    })
+    
+}
+
+
+// ----------------------- SLIDER MODAL ----------------------------------
+
+
+function mover(){
+    const slider = document.querySelector(".modal-content");
+    const next = document.querySelector(".next");
+    const prev = document.querySelector(".prev");
+    const total = 4;
+
+    next.addEventListener("click",()=>{
+        if(index < total-1){
+            index ++;
+            console.log(index);
+            slider.style.transform = `translateX(-${index * 100}%)`;
+        }
+        next.disabled = index === total-1;
+        prev.disabled = index === 0;
+    });
+
+    prev.addEventListener("click",()=>{
+        if(index > 0){
+            index --;
+            console.log(index);
+            slider.style.transform = `translateX(-${index * 100}%)`;
+        }
+        next.disabled = index === total-1;
+        prev.disabled = index === 0;
+    });
+}
+
+
 
 function contacto(){
     const btn = document.querySelector(".container_whatsapp")

@@ -85,18 +85,19 @@ main{
     display: grid;
     grid-template-columns: repeat(4,1fr);
     justify-items: center;
+    margin-top: 10px;
 }
 
 .catalogo_joya{
     width: 280px;
     min-height: 250px;
-    border-radius: 10px;
+    border-radius: 15px;
     display: flex;
     gap: 5px;
     flex-direction: column;
     align-items: center;
     font-family: var(--fontfamily-principal);
-    padding: 20px 0px;
+    padding: 15px 0px;
     animation: aparecer 1s linear both;
 }
 
@@ -127,6 +128,147 @@ h3{
     border-radius: 5px;
     padding: 10px 0px;
     width: 80%;
+}
+
+.catalogo_joya:hover{
+    background-color: #C9A248aa;
+    transform: scale(1.02);
+    transition: 0.3s, filter 0.3s;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
+}
+
+.catalogo_joya::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 20%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.5),
+        transparent
+    );
+}
+
+.catalogo_joya:hover::after {
+    left: 100%;
+    transition: 0.7s;
+}
+
+/*--------------------------------- MODAL WEB------------------------------*/
+.btn_modal , .modal{
+    display: none;
+}
+
+.btn_slider{
+    display: none;
+}
+
+.active{
+    position: fixed;
+    top: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color:#333a;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.active .modal-content{
+    position: relative;
+    padding: 15px;
+    max-width: 1000px;
+    max-height: 800px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 12px 18px;
+    place-items: center;
+}
+
+.active .modal-content img{
+    width: 380px;
+    height: 330px;
+    border-radius: 10px;
+    animation: aparecer 0.6s linear both;
+}
+
+
+
+.active .btn_modal{
+    display: block;
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    color: #eee;
+    z-index: 100;
+    top: 0;
+    background-color: #222;
+    border-radius: 50%;
+}
+
+.active .btn_modal:hover{
+    background-color: #eee;
+    border-radius: 50%;
+    color: #222;
+}
+
+.active .btn_modal span{
+    font-weight: bold;
+    font-size: 18px;   
+}
+
+.active .btn_modal:active{
+    background-color: #C9A248;
+}
+
+/*------------------------------- CONTACTO WHATSAPP -----------------------*/
+
+body{
+    position: relative;
+}
+
+.container_whatsapp{
+    position: fixed;
+    bottom: 5%;
+    right: 0;
+    animation: whatsapp 1.3s linear both infinite;
+}
+
+.container_whatsapp a{
+    animation: aparecer 0.5s linear both;
+}
+
+.container_whatsapp:hover{
+    cursor: pointer;
+}
+
+.container_whatsapp div{
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+.container_whatsapp a{
+    text-decoration: none;
+    color: #222;
+}
+
+.container_whatsapp span{
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.container_whatsapp img{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 
@@ -177,6 +319,24 @@ h3{
     }
 }
 
+@keyframes whatsapp {
+    0%{
+        transform: scale(1.0);
+    }
+    25%{
+        transform: scale(1.025);
+    }
+    50%{
+        transform: scale(1.05);
+    }
+    75%{
+        transform: scale(1.025);
+    }
+    100%{
+        transform: scale(1.0);
+    }
+}
+
 
 
 /*----------------------- RENDERIZADO MOVILES ------------------------*/
@@ -189,11 +349,12 @@ h3{
     .container_catalogo{
         grid-template-columns: repeat(2,1fr);
         gap: 0px;
-        width: 100%;
+        width: 90%;
+
     }
     .catalogo_joya{
         width: 100%;
-        height: 100%;
+        min-height: auto;
         padding: 10px 0px;
         margin: 0;
         
@@ -201,6 +362,69 @@ h3{
     .catalogo_joya--imagen{
         width: 160px;
         height: 140px;
+    }
+    .catalogo_joya button{
+        width: 70%;
+    }
+
+    /*-------------------------- MODAL -------------------*/
+    .modal{
+        width: 100vh;
+        height: 100vh;
+        padding: 10px;
+        gap: 2px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .active .slider-content{
+        max-width: 80vw;
+        max-height: 35vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .active .modal-content{
+        place-items: initial;
+        padding: 0;
+        display: flex;
+        justify-content: initial;
+        gap: 0px;
+    }
+
+    .btn_modal{
+        left:46%;
+    }
+
+    .active .modal-content img{
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        flex-shrink: 0;
+    }   
+
+    .btn_slider{
+        font-family: sans-serif;
+        display: block;
+        background-color: transparent;
+        border: none;
+        font-size: 35px;
+        font-weight: bold;
+        color: #fff;
+        width: 50px;
+        height: 50px;
+    }
+
+    .btn_slider:hover{
+        background-color: #111;
+        border-radius: 20%;
+        transform: scale(1.1);
+    }
+
+    .btn_slider:disabled{
+        background-color: #888;
+        border-radius: 20%;
+        opacity: 0.7;
     }
 }
 
